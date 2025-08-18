@@ -1,8 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router";
 import routes from "./routes";
 import AuthProvider from "./providers/AuthProvider";
-import { SnackbarProvider } from "./providers/SnackbarContext";
+import { SnackbarProvider } from "./providers/SnackbarProvider";
 
 const theme = createTheme({
   typography: {
