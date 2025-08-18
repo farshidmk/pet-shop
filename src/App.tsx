@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createTheme, ThemeProvider } from "@mui/material";
+import { RouterProvider } from "react-router-dom";
+import routes from "./routes";
+import AuthProvider from "./providers/AuthProvider";
+import { SnackbarProvider } from "./providers/SnackbarContext";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins",
+    caption: {
+      color: "#96969F",
+      fontSize: 10,
+      fontWeight: 400,
+    },
+  },
+  palette: {
+    primary: {
+      main: "#B22222",
+    },
+    secondary: {
+      main: "#1A1A2E",
+    },
+    background: {
+      default: "#8A8A8A",
+      paper: "#F5F5F5",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>
+          <RouterProvider router={routes} />
+        </SnackbarProvider>
+      </ThemeProvider>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
