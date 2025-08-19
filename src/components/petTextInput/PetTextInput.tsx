@@ -14,7 +14,7 @@ const PetTextInput = ({ icon, children }: Props) => {
         display: 'flex',
         gap: 0,
         border: (t) => `1px solid ${t.palette.common.black}`,
-        borderRadius: 2,
+        borderRadius: 4,
         height: '74px',
       }}
     >

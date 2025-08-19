@@ -1,28 +1,28 @@
-import { createTheme, ThemeProvider } from "@mui/material";
-import { RouterProvider } from "react-router";
-import routes from "./routes";
-import AuthProvider from "./providers/AuthProvider";
-import { SnackbarProvider } from "./providers/SnackbarProvider";
+import { createTheme, ThemeProvider } from '@mui/material';
+import { RouterProvider } from 'react-router';
+import routes from './routes';
+import AuthProvider from './providers/AuthProvider';
+import { SnackbarProvider } from './providers/SnackbarProvider';
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Poppins",
+    fontFamily: 'Roboto',
     caption: {
-      color: "#96969F",
+      color: '#96969F',
       fontSize: 10,
       fontWeight: 400,
     },
   },
   palette: {
     primary: {
-      main: "#B22222",
+      main: '#0C4E5A',
     },
     secondary: {
-      main: "#1A1A2E",
+      main: '#FDB429',
     },
     background: {
-      default: "#8A8A8A",
-      paper: "#F5F5F5",
+      default: '#8A8A8A',
+      paper: '#F5F5F5',
     },
   },
   components: {

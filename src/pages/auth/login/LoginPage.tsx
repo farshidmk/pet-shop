@@ -2,7 +2,6 @@ import { Alert, Box, Button, CircularProgress, IconButton, InputAdornment, TextF
 
 import { type MutationFunction, useMutation } from '@tanstack/react-query';
 import { AxiosError, type AxiosResponse } from 'axios';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -14,17 +13,15 @@ import { useAuth } from '../../../hooks/useAuth';
 import type { LoginResponse, ServerCallType } from '../../../types/auth';
 import { api } from '../../../services/api';
 import PetTextInput from '../../../components/petTextInput/PetTextInput';
+import PetEmailIcon from '../../../icons/PetEmailIcon';
+import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 
 const Login = () => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const { storeUserInfo } = useAuth();
 
-  const { mutate, isPending, error } = useMutation<
-    AxiosResponse<LoginResponse>,
-    AxiosError,
-    ServerCallType<LoginItems>
-  >({
+  const { mutate, isPending } = useMutation<AxiosResponse<LoginResponse>, AxiosError, ServerCallType<LoginItems>>({
     // mutationFn: loginRequest,
   });
 
@@ -63,22 +60,42 @@ const Login = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'start',
         justifyContent: 'center',
         background: (t) => t.palette.common.white,
+        px: 6,
       }}
     >
-      <Typography variant="h2" fontWeight={600} fontSize={36} color="primary" sx={{ mb: 8 }}>
-        Pet Shop
+      <Box sx={{ flex: 1 }} />
+      <Box
+        component="div"
+        sx={{
+          background: '#ADD4DE',
+          borderRadius: 10,
+          width: 101,
+          height: 101,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mb: 3,
+        }}
+      >
+        <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
+      </Box>
+      <Typography variant="h6" fontWeight={600}>
+        Login
+      </Typography>
+      <Typography variant="body2" color="textSecondary" fontSize={12}>
+        Enter you email and password
       </Typography>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmitHandler)}
         sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
       >
-        <PetTextInput icon={<MailOutlineIcon />}>
+        <PetTextInput icon={<PetEmailIcon />}>
           <TextField
-            label="Email"
+            label="Email or Username"
             {...register('email')}
             error={Boolean(errors.email?.message)}
             helperText={errors.email?.message}
@@ -86,52 +103,75 @@ const Login = () => {
             InputProps={{ disableUnderline: true }}
           />
         </PetTextInput>
-        <TextField
-          label="Password"
-          {...register('password')}
-          error={Boolean(errors.password?.message)}
-          helperText={errors.password?.message}
-          type={showPass ? 'text' : 'password'}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPass((p) => !p)}>
-                    {showPass ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-        <Alert variant="outlined" severity="error" sx={{ opacity: error ? 1 : 0, transition: 'all 0.2s linear' }}>
-          {error?.response?.data?.error || 'Can not connect to server!'}
-        </Alert>
+        <PetTextInput icon={<PetPasswordIcon />}>
+          <TextField
+            label="Password"
+            {...register('password')}
+            error={Boolean(errors.password?.message)}
+            helperText={errors.password?.message}
+            type={showPass ? 'text' : 'password'}
+            variant="standard"
+            slotProps={{
+              input: {
+                disableUnderline: true,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowPass((p) => !p)}>
+                      {showPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </PetTextInput>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 4, mb: 1 }} disabled={isPending}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+          }}
+        >
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mb: 2, borderRadius: 5, height: '62px' }}
+            disabled={isPending}
+            color="primary"
+            size="large"
+          >
             {isPending && <CircularProgress sx={{ mx: 1 }} size={20} />}
-            login
+            Sign In
           </Button>
-          <Link to="/auth/sign-up" style={{ textDecoration: 'none' }}>
-            <Typography variant="body2" color="textPrimary" fontWeight={'600'}>
-              Create new user
-            </Typography>
-          </Link>
+          <Typography variant="body2" sx={{ display: 'flex', gap: 0.5 }}>
+            Don't have account?
+            <Link to="/auth/sign-up" style={{ textDecoration: 'none' }}>
+              <Typography variant="body2" color="secondary" fontWeight={'600'}>
+                Create One
+              </Typography>
+            </Link>
+          </Typography>
         </Box>
       </Box>
+      <Box sx={{ flex: 1 }} />
+      <Box
+        component="img"
+        src="/assets/images/lonely-dog.png"
+        sx={{
+          height: '20vh',
+          width: 'auto',
+          maxHeight: '200px',
+        }}
+      />
     </Box>
   );
 };
 
 export default Login;
-
-const loginRequest: MutationFunction<AxiosResponse<LoginResponse>, ServerCallType<LoginItems>> = async ({
-  data,
-  entity,
-}) => {
-  return api.post(entity, data);
-};
 
 type LoginItems = {
   email: string;
