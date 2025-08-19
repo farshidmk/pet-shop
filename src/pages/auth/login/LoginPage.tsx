@@ -1,6 +1,5 @@
-import { Alert, Box, Button, CircularProgress, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-
-import { type MutationFunction, useMutation } from '@tanstack/react-query';
+import { Box, Button, CircularProgress, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError, type AxiosResponse } from 'axios';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,7 +10,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../../hooks/useAuth';
 import type { LoginResponse, ServerCallType } from '../../../types/auth';
-import { api } from '../../../services/api';
 import PetTextInput from '../../../components/petTextInput/PetTextInput';
 import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
@@ -60,7 +58,7 @@ const Login = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'start',
+        alignItems: 'center',
         justifyContent: 'center',
         background: (t) => t.palette.common.white,
         px: 6,
