@@ -4,14 +4,14 @@ import {
   QueryClientProvider,
   type QueryFunction,
   type QueryKey,
-} from "@tanstack/react-query";
-import { AxiosError, type AxiosRequestConfig } from "axios";
-import { jwtDecode } from "jwt-decode";
-import React from "react";
-import useCookie from "react-use-cookie";
-import { api } from "../services/axios";
-import { AuthContextType, ServerCallType, UserInfo } from "../types/auth";
-import { ApiCallResponse } from "../types/server";
+} from '@tanstack/react-query';
+import { AxiosError, type AxiosRequestConfig } from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import React from 'react';
+import useCookie from 'react-use-cookie';
+import { api } from '../services/api';
+import type { AuthContextType, ServerCallType, UserInfo } from '../types/auth';
+import type { ApiCallResponse } from '../types/server';
 interface Props {
   children: React.ReactNode;
 }
@@ -21,13 +21,11 @@ type TDecodedToken = {
   exp: number;
 };
 
-export const AuthContext = React.createContext<AuthContextType | undefined>(
-  undefined
-);
+export const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [token, setToken] = useCookie("token", "");
-  const [userInfo, setUserInfo] = useCookie("userInfo", "");
+  const [token, setToken] = useCookie('token', '');
+  const [userInfo, setUserInfo] = useCookie('userInfo', '');
   // const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
   // useEffect(() => {
@@ -51,24 +49,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logout() {
-    setToken("");
-    setUserInfo("");
+    setToken('');
+    setUserInfo('');
   }
 
   const serverCall: MutationFunction<unknown, unknown> = async (variables) => {
-    const {
-      entity,
-      method,
-      data = {},
-      ...axiosVariables
-    } = variables as ServerCallType;
+    const { entity, method, data = {}, ...axiosVariables } = variables as ServerCallType;
     try {
       const requestOptions: AxiosRequestConfig = {
         url: entity,
         method,
         headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json',
         },
         data,
         ...axiosVariables,
@@ -90,18 +83,14 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  const getRequest: QueryFunction<unknown, QueryKey, never> = async ({
-    queryKey,
-  }: {
-    queryKey: QueryKey;
-  }) => {
-    let tempEntity = "";
+  const getRequest: QueryFunction<unknown, QueryKey, never> = async ({ queryKey }: { queryKey: QueryKey }) => {
+    let tempEntity = '';
     if (Array.isArray(queryKey)) {
-      tempEntity = queryKey.join("/");
+      tempEntity = queryKey.join('/');
     }
     tempEntity = String(tempEntity);
     try {
-      return await serverCall({ entity: tempEntity, method: "get" });
+      return await serverCall({ entity: tempEntity, method: 'get' });
     } catch (error: any) {
       throw new Error(error?.message || `Error on Fetching Data`);
     }
@@ -128,7 +117,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         getRequest,
         isUserLoggedIn: !!token,
         logout,
-        userInfo: JSON.parse(userInfo || "{}"),
+        userInfo: JSON.parse(userInfo || '{}'),
       }}
     >
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -156,5 +145,5 @@ function getExpireDate(decodedToken: TDecodedToken) {
 }
 
 function isServerError(obj: any): obj is AxiosError<ApiCallResponse> {
-  return typeof obj === "object" && obj !== null && "response" in obj;
+  return typeof obj === 'object' && obj !== null && 'response' in obj;
 }
