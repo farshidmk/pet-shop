@@ -1,5 +1,6 @@
 import { QueryFunction } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
+import type { UserRole } from 'src/pages/auth/signUp/signUp.types';
 
 export type AuthContextType = {
   token: string;
@@ -33,23 +34,17 @@ export type LoginItems = {
 };
 
 export type LoginResponse = {
+  userId: number;
+  email: string;
+  role: UserRole;
   token: string;
-  user: UserInfo;
-};
-
-export type SignUpResponse = {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  };
 };
 
 export type UserInfo = {
-  id: number;
+  userId: number;
   name: string;
   email: string;
-  status: 'notfill' | 'fill';
+  role: UserRole;
 };
 
 type LoginError = {

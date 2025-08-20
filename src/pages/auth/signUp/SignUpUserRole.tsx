@@ -21,7 +21,7 @@ const SignUpUserRole = () => {
         overflow: 'auto',
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 2 }}>
         <IconButton color="secondary" onClick={() => setStep(SignUpFormSteps.Email)}>
           <ArrowBackIosNewIcon />
         </IconButton>
@@ -31,7 +31,17 @@ const SignUpUserRole = () => {
         </IconButton>
       </Box>
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1, overflow: 'auto' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          flex: 1,
+          overflow: 'auto',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {ROLES.map((role) => (
           <RoleCardCheckbox key={role.value} {...role} />
         ))}

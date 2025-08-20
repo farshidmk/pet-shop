@@ -22,4 +22,4 @@ export const SignUpFormSteps = {
   Name: 'name',
 } as const;
 
-export type SignUpFormStem = (typeof SignUpFormSteps)[keyof typeof SignUpFormSteps];
+export type SignUpFormStep = (typeof SignUpFormSteps)[keyof typeof SignUpFormSteps];

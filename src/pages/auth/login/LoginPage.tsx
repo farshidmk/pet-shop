@@ -39,7 +39,7 @@ const Login = () => {
     mutate(
       {
         method: 'post',
-        entity: 'Login',
+        entity: 'auth/login',
         data,
       },
       {
