@@ -16,6 +16,7 @@ const PetTextInput = ({ icon, children }: Props) => {
         border: (t) => `1px solid ${t.palette.common.black}`,
         borderRadius: 4,
         height: '74px',
+        width: '100%',
       }}
     >
       <Box
@@ -30,7 +31,7 @@ const PetTextInput = ({ icon, children }: Props) => {
       >
         {icon}
       </Box>
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{children}</Box>
+      <Box sx={{ p: 2, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{children}</Box>
     </Box>
   );
 };

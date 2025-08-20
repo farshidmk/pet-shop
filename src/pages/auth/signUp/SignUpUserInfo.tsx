@@ -1,55 +1,33 @@
-import { Box, Button, CircularProgress, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError, type AxiosResponse } from 'axios';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
-import { useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../../../hooks/useAuth';
-import type { LoginResponse, ServerCallType } from '../../../types/auth';
 import PetTextInput from '../../../components/petTextInput/PetTextInput';
+import { useAuth } from '../../../hooks/useAuth';
 import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
+import type { SignUpItems } from './signUp.types';
 
-const Login = () => {
+const SignUpUserInfo = () => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const { storeUserInfo } = useAuth();
-
-  const { mutate, isPending } = useMutation<AxiosResponse<LoginResponse>, AxiosError, ServerCallType<LoginItems>>({
-    // mutationFn: loginRequest,
-  });
 
   const {
     handleSubmit,
     formState: { errors },
     register,
-  } = useForm<LoginItems>({
-    resolver: yupResolver(loginValidation),
+  } = useForm<SignUpItems>({
+    // resolver: yupResolver(loginValidation),
     defaultValues: {
       password: '',
       email: '',
     },
   });
 
-  const onSubmitHandler = (data: LoginItems) => {
-    mutate(
-      {
-        method: 'post',
-        entity: 'Login',
-        data,
-      },
-      {
-        onSuccess: (res) => {
-          storeUserInfo(res.data.token, res.data.user);
-          navigate('/auth/welcome');
-        },
-      }
-    );
-  };
+  const onSubmitHandler = (data: SignUpItems) => {};
 
   return (
     <Box
@@ -140,11 +118,11 @@ const Login = () => {
             fullWidth
             variant="contained"
             sx={{ mb: 2, borderRadius: 5, height: '62px' }}
-            disabled={isPending}
+            // disabled={isPending}
             color="primary"
             size="large"
           >
-            {isPending && <CircularProgress sx={{ mx: 1 }} size={20} />}
+            {/* {isPending && <CircularProgress sx={{ mx: 1 }} size={20} />} */}
             Sign In
           </Button>
           <Typography variant="body2" sx={{ display: 'flex', gap: 0.5 }}>
@@ -171,14 +149,4 @@ const Login = () => {
   );
 };
 
-export default Login;
-
-type LoginItems = {
-  email: string;
-  password: string;
-};
-
-const loginValidation = Yup.object().shape({
-  password: Yup.string().required('Password is required'),
-  email: Yup.string().email('Invalid email format').required('Email is required'),
-});
+export default SignUpUserInfo;

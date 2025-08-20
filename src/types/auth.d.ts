@@ -1,5 +1,5 @@
-import { QueryFunction } from "@tanstack/react-query";
-import { AxiosRequestConfig } from "axios";
+import { QueryFunction } from '@tanstack/react-query';
+import { AxiosRequestConfig } from 'axios';
 
 export type AuthContextType = {
   token: string;
@@ -18,7 +18,7 @@ export type ServerCallType<T = Record<string, any>> = {
   // method: AXIOS
 } & Partial<AxiosRequestConfig>;
 
-export type THttpMethods = "get" | "post" | "delete" | "put" | "patch";
+export type THttpMethods = 'get' | 'post' | 'delete' | 'put' | 'patch';
 
 export type LoggedInUser = {
   fullName: string;
@@ -49,7 +49,7 @@ export type UserInfo = {
   id: number;
   name: string;
   email: string;
-  status: "notfill" | "fill";
+  status: 'notfill' | 'fill';
 };
 
 type LoginError = {
