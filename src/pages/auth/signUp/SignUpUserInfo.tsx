@@ -1,19 +1,9 @@
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Box, Button, TextField, Typography } from '@mui/material';
+
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
-import PetTextInput from '../../../components/petTextInput/PetTextInput';
-import PetEmailIcon from '../../../icons/PetEmailIcon';
-import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 import type { SignUpItems } from './signUp.types';
 
 const SignUpUserInfo = () => {
-  // const navigate = useNavigate();
-  const [showPass, setShowPass] = useState(false);
-  // const { storeUserInfo } = useAuth();
-
   const {
     handleSubmit,
     formState: { errors },
@@ -21,8 +11,9 @@ const SignUpUserInfo = () => {
   } = useForm<SignUpItems>({
     // resolver: yupResolver(loginValidation),
     defaultValues: {
-      password: '',
-      email: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
     },
   });
 
@@ -59,9 +50,7 @@ const SignUpUserInfo = () => {
       >
         <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
       </Box>
-      <Typography variant="h6" fontWeight={600}>
-        Login
-      </Typography>
+
       <Typography variant="body2" color="textSecondary" fontSize={12}>
         Enter you email and password
       </Typography>
@@ -70,40 +59,31 @@ const SignUpUserInfo = () => {
         onSubmit={handleSubmit(onSubmitHandler)}
         sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}
       >
-        <PetTextInput icon={<PetEmailIcon />}>
-          <TextField
-            label="Email or Username"
-            {...register('email')}
-            error={Boolean(errors.email?.message)}
-            helperText={errors.email?.message}
-            variant="standard"
-            fullWidth
-            InputProps={{ disableUnderline: true }}
-          />
-        </PetTextInput>
-        <PetTextInput icon={<PetPasswordIcon />}>
-          <TextField
-            label="Password"
-            {...register('password')}
-            error={Boolean(errors.password?.message)}
-            helperText={errors.password?.message}
-            type={showPass ? 'text' : 'password'}
-            variant="standard"
-            fullWidth
-            slotProps={{
-              input: {
-                disableUnderline: true,
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setShowPass((p) => !p)}>
-                      {showPass ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-        </PetTextInput>
+        <TextField
+          label="First name"
+          {...register('firstName')}
+          error={Boolean(errors.firstName?.message)}
+          helperText={errors.firstName?.message}
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          label="Last name"
+          {...register('lastName')}
+          error={Boolean(errors.lastName?.message)}
+          helperText={errors.lastName?.message}
+          variant="outlined"
+          fullWidth
+        />
+        <TextField
+          label="Phone number"
+          {...register('phone')}
+          error={Boolean(errors.phone?.message)}
+          helperText={errors.phone?.message}
+          variant="outlined"
+          type="tel"
+          fullWidth
+        />
 
         <Box
           sx={{
@@ -119,33 +99,13 @@ const SignUpUserInfo = () => {
             fullWidth
             variant="contained"
             sx={{ mb: 2, borderRadius: 5, height: '62px' }}
-            // disabled={isPending}
             color="primary"
             size="large"
           >
-            {/* {isPending && <CircularProgress sx={{ mx: 1 }} size={20} />} */}
-            Sign In
+            Continue
           </Button>
-          <Typography variant="body2" sx={{ display: 'flex', gap: 0.5 }}>
-            Don't have account?
-            <Link to="/auth/sign-up" style={{ textDecoration: 'none' }}>
-              <Typography variant="body2" color="secondary" fontWeight={'600'}>
-                Create One
-              </Typography>
-            </Link>
-          </Typography>
         </Box>
       </Box>
-      <Box sx={{ flex: 1 }} />
-      <Box
-        component="img"
-        src="/assets/images/lonely-dog.png"
-        sx={{
-          height: '20vh',
-          width: 'auto',
-          maxHeight: '200px',
-        }}
-      />
     </Box>
   );
 };

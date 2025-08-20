@@ -21,7 +21,7 @@ const SignUpUserRole = () => {
         overflow: 'auto',
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <IconButton color="secondary" onClick={() => setStep(SignUpFormSteps.Email)}>
           <ArrowBackIosNewIcon />
         </IconButton>
@@ -66,8 +66,8 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
       sx={{
         border: (t) => `1px solid ${t.palette.common.black}`,
         borderRadius: 5,
-        py: 5,
-        px: 3,
+        py: 4,
+        px: 2,
         display: 'flex',
         alignItems: 'center',
       }}
@@ -78,7 +78,7 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
         }
       }}
     >
-      <Box component="img" src={imageUrl} sx={{ width: '120px', height: 'auto' }} />
+      <Box component="img" src={imageUrl} sx={{ width: '80px', height: 'auto' }} />
       <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h6">{title}</Typography>
@@ -95,23 +95,20 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
 const ROLES: Props[] = [
   {
     title: 'Pet Owner',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti provident  Autem sed, maiores possimus doloremque tenetur a.',
+    description: 'Track your pet’s care, appointments, and find nearby pet sitters.',
     imageUrl: '/assets/images/petOwner.png',
     value: Roles.PetOwner,
   },
   {
-    title: 'Veterinarian',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti provident  Autem sed, maiores possimus doloremque tenetur a.',
-    imageUrl: '/assets/images/lonely-dog.png',
-    value: Roles.Veterinarian,
-  },
-  {
-    title: 'Pet Keeper',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti provident  Autem sed, maiores possimus doloremque tenetur a.',
+    title: 'Pet Sitter/Walker',
+    description: 'Help other by offering pet-sitting services, build trust and earn.',
     imageUrl: '/assets/images/my-dog.png',
     value: Roles.WalkerKeeper,
+  },
+  {
+    title: 'Pet Veterinarian',
+    description: 'Manage pet health records and provide professional support.',
+    imageUrl: '/assets/images/lonely-dog.png',
+    value: Roles.Veterinarian,
   },
 ];
