@@ -19,7 +19,7 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const { storeUserInfo } = useAuth();
 
-  const { mutate, isPending } = useMutation<AxiosResponse<LoginResponse>, AxiosError, ServerCallType<LoginItems>>({
+  const { mutate, isPending } = useMutation<LoginResponse, AxiosError, ServerCallType<LoginItems>>({
     // mutationFn: loginRequest,
   });
 
@@ -43,9 +43,15 @@ const Login = () => {
         data,
       },
       {
-        onSuccess: (res) => {
-          storeUserInfo(res.data.token, res.data.user);
-          navigate('/auth/welcome');
+        onSuccess: ({ token, email, firstname, lastname, role, userId }) => {
+          storeUserInfo(token, {
+            email,
+            firstname,
+            lastname,
+            role,
+            userId,
+          });
+          navigate('/');
         },
       }
     );

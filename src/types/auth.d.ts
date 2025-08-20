@@ -33,18 +33,15 @@ export type LoginItems = {
   password: string;
 };
 
-export type LoginResponse = {
-  userId: number;
-  email: string;
-  role: UserRole;
-  token: string;
-};
-
 export type UserInfo = {
   userId: number;
-  name: string;
   email: string;
   role: UserRole;
+  firstname: string;
+  lastname: string;
+};
+export type LoginResponse = UserInfo & {
+  token: string;
 };
 
 type LoginError = {
