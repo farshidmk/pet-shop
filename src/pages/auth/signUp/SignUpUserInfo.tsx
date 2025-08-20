@@ -3,17 +3,16 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import PetTextInput from '../../../components/petTextInput/PetTextInput';
-import { useAuth } from '../../../hooks/useAuth';
 import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 import type { SignUpItems } from './signUp.types';
 
 const SignUpUserInfo = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
-  const { storeUserInfo } = useAuth();
+  // const { storeUserInfo } = useAuth();
 
   const {
     handleSubmit,
@@ -27,7 +26,9 @@ const SignUpUserInfo = () => {
     },
   });
 
-  const onSubmitHandler = (data: SignUpItems) => {};
+  const onSubmitHandler = (data: SignUpItems) => {
+    console.log({ data });
+  };
 
   return (
     <Box
