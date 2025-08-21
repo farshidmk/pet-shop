@@ -38,10 +38,11 @@ const SignUpUserInfo = () => {
         entity: 'auth/register',
       },
       {
-        onSuccess: ({ email, role, token, userId }) => {
+        onSuccess: ({ email, role, token, userId, firstname, lastname }) => {
           storeUserInfo(token, {
             email,
-            name: '',
+            firstname,
+            lastname,
             role,
             userId,
           });
