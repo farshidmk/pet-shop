@@ -135,7 +135,7 @@ const SignUpUserEmail = () => {
           </Button>
           <Typography variant="body2" sx={{ display: 'flex', gap: 0.5 }}>
             Already have account?
-            <Link to="/auth/sign-up" style={{ textDecoration: 'none' }}>
+            <Link to="/auth/login" style={{ textDecoration: 'none' }}>
               <Typography variant="body2" color="secondary" fontWeight={'600'}>
                 Sign in
               </Typography>
