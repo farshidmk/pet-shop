@@ -14,6 +14,8 @@ export type SignUpItems = {
   firstName: string;
   lastName: string;
   phone: string;
+  clinic_name?: string;
+  services_offered?: string;
 };
 
 export const SignUpFormSteps = {

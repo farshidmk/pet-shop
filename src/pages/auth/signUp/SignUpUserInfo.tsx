@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, IconButton, TextField, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useForm } from 'react-hook-form';
-import { SignUpFormSteps, type SignUpItems } from './signUp.types';
+import { Roles, SignUpFormSteps, type SignUpItems } from './signUp.types';
 import useSignUpValues from './hooks/useSignUpValues';
 import type { AxiosError } from 'axios';
 import type { LoginResponse, ServerCallType } from '../../../types/auth';
@@ -24,6 +24,8 @@ const SignUpUserInfo = () => {
       firstName: '',
       lastName: '',
       phone: '',
+      services_offered: '',
+      clinic_name: '',
     },
   });
 
@@ -96,6 +98,7 @@ const SignUpUserInfo = () => {
         sx={{
           mt: 1,
           width: '100%',
+          overflow: 'auto',
         }}
       >
         <Box
@@ -137,6 +140,26 @@ const SignUpUserInfo = () => {
             type="tel"
             fullWidth
           />
+          {(signUpValues.role === Roles.Veterinarian || signUpValues.role === Roles.WalkerKeeper) && (
+            <TextField
+              label="Service Offered"
+              {...register('services_offered')}
+              error={Boolean(errors.services_offered?.message)}
+              helperText={errors.services_offered?.message}
+              variant="outlined"
+              fullWidth
+            />
+          )}
+          {signUpValues.role === Roles.Veterinarian && (
+            <TextField
+              label="Clinic Name"
+              {...register('clinic_name')}
+              error={Boolean(errors.clinic_name?.message)}
+              helperText={errors.clinic_name?.message}
+              variant="outlined"
+              fullWidth
+            />
+          )}
         </Box>
 
         <Box
