@@ -4,7 +4,8 @@ export type ApiCallResponse<T = unknown> = {
   messages: string;
 };
 
-export type ServerError400 = {
-  ErrorMessage: string;
-  PropertyName: string;
+export type ServerLoginError = {
+  error: string;
+  success: string;
+  errorCode: number;
 };

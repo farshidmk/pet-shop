@@ -40,6 +40,7 @@ const SignUpUserRole = () => {
           overflow: 'auto',
           justifyContent: 'center',
           alignItems: 'center',
+          pt: 1,
         }}
       >
         {ROLES.map((role) => (
@@ -76,8 +77,8 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
       sx={{
         border: (t) => `1px solid ${t.palette.common.black}`,
         borderRadius: 5,
-        py: 4,
-        px: 2,
+        py: 2,
+        px: 1,
         display: 'flex',
         alignItems: 'center',
       }}
@@ -104,19 +105,19 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
 
 const ROLES: Props[] = [
   {
-    title: 'Pet Owner',
+    title: 'Owner',
     description: 'Track your pet’s care, appointments, and find nearby pet sitters.',
     imageUrl: '/assets/images/petOwner.png',
     value: Roles.PetOwner,
   },
   {
-    title: 'Pet Sitter/Walker',
+    title: 'Sitter/Walker',
     description: 'Help other by offering pet-sitting services, build trust and earn.',
     imageUrl: '/assets/images/my-dog.png',
     value: Roles.WalkerKeeper,
   },
   {
-    title: 'Pet Veterinarian',
+    title: 'Veterinarian',
     description: 'Manage pet health records and provide professional support.',
     imageUrl: '/assets/images/lonely-dog.png',
     value: Roles.Veterinarian,

@@ -79,7 +79,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         const tempError = e.response.data;
         throw tempError;
       }
-      throw new Error(JSON.stringify(e) || `Error on operation...`);
+      throw e || new Error(`Error on Fetching Data`);
     }
   };
 
@@ -92,7 +92,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     try {
       return await serverCall({ entity: tempEntity, method: 'get' });
     } catch (error: any) {
-      throw new Error(error?.message || `Error on Fetching Data`);
+      throw error?.message || new Error(`Error on Fetching Data`);
     }
   };
 

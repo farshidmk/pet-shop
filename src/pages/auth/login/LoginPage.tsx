@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
@@ -13,15 +13,18 @@ import type { LoginResponse, ServerCallType } from '../../../types/auth';
 import PetTextInput from '../../../components/petTextInput/PetTextInput';
 import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
+import type { ServerLoginError } from '../../../types/server';
 
 const Login = () => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const { storeUserInfo } = useAuth();
 
-  const { mutate, isPending } = useMutation<LoginResponse, AxiosError, ServerCallType<LoginItems>>({
-    // mutationFn: loginRequest,
-  });
+  const { mutate, isPending, error } = useMutation<
+    LoginResponse,
+    AxiosError<ServerLoginError>,
+    ServerCallType<LoginItems>
+  >({});
 
   const {
     handleSubmit,
@@ -132,6 +135,12 @@ const Login = () => {
           />
         </PetTextInput>
 
+        {error && (
+          <Alert variant="filled" severity="error" sx={{ borderRadius: 5 }}>
+            {showError(error)}
+          </Alert>
+        )}
+
         <Box
           sx={{
             display: 'flex',
@@ -188,3 +197,12 @@ const loginValidation = Yup.object().shape({
   password: Yup.string().required('Password is required'),
   email: Yup.string().email('Invalid email format').required('Email is required'),
 });
+
+function showError(error: AxiosError<ServerLoginError>) {
+  const serverResponse = error.response?.data;
+  if (serverResponse && 'error' in serverResponse) {
+    return error.response?.data?.error;
+  } else {
+    return 'Unable to connect to server';
+  }
+}

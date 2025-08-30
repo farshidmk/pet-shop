@@ -8,8 +8,10 @@ import type { LoginResponse, ServerCallType } from '../../../types/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '@hooks/useAuth';
 import { useNavigate } from 'react-router';
+import { useSnackbar } from '@hooks/useSnackbar';
 
 const SignUpUserInfo = () => {
+  const snackbar = useSnackbar();
   const navigate = useNavigate();
   const { storeUserInfo } = useAuth();
   const { mutate, isPending } = useMutation<LoginResponse, AxiosError, ServerCallType<SignUpItems>>({});
@@ -49,6 +51,9 @@ const SignUpUserInfo = () => {
             userId,
           });
           navigate('/');
+        },
+        onError: () => {
+          snackbar('Error on Saving data', 'error');
         },
       }
     );
@@ -99,18 +104,22 @@ const SignUpUserInfo = () => {
           mt: 1,
           width: '100%',
           overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 3,
+            gap: 1.5,
             width: '100%',
             border: (t) => `1px solid ${t.palette.common.black}`,
             p: 2,
+            pt: 3,
             borderRadius: 2,
             flex: 1,
+            overflow: 'auto',
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -169,7 +178,7 @@ const SignUpUserInfo = () => {
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            mt: 4,
+            mt: 2,
           }}
         >
           <Button
