@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
+import AppBottomNavigation from './AppBottomNavigation';
 // import Navbar from './Navbar';
 
 const MainLayout = () => {
@@ -28,8 +29,9 @@ const MainLayout = () => {
       }}
     >
       {/* <Navbar /> */}
-      <Box sx={{ flex: 1, overflow: 'auto' }}>
+      <Box sx={{ flex: 1, overflow: 'auto', pt: 3, px: 3, mb: 15 }}>
         <Outlet />
+        <AppBottomNavigation />
       </Box>
     </Box>
   );

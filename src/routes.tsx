@@ -7,6 +7,7 @@ import ErrorPage from './layout/ErrorPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import SignUpPage from './pages/auth/signUp/SignUpPage';
 import AuthLayout from './layout/AuthLayout';
+import ProfilePage from './pages/profile/ProfilePage';
 
 const routes = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const routes = createBrowserRouter([
           {
             index: true,
             element: <DashboardPage />,
+          },
+          {
+            path: 'profile',
+            element: <ProfilePage />,
           },
         ],
       },
