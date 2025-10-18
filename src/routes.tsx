@@ -8,6 +8,8 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import SignUpPage from './pages/auth/signUp/SignUpPage';
 import AuthLayout from './layout/AuthLayout';
 import ProfilePage from './pages/profile/ProfilePage';
+import PetsPage from './pages/profile/pets/PetsPage';
+import CreatePetPage from './pages/profile/pets/CreatePetPage';
 
 const routes = createBrowserRouter([
   {
@@ -37,7 +39,26 @@ const routes = createBrowserRouter([
           },
           {
             path: 'profile',
-            element: <ProfilePage />,
+
+            children: [
+              {
+                index: true,
+                element: <ProfilePage />,
+              },
+              {
+                path: 'pets',
+                children: [
+                  {
+                    index: true,
+                    element: <PetsPage />,
+                  },
+                  {
+                    path: 'new',
+                    element: <CreatePetPage />,
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
