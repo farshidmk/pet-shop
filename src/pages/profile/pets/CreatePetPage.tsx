@@ -1,34 +1,106 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import AppNavbar from 'src/layout/navbar/AppNavbar';
-import { PetGender, type Pet } from './pet.types';
+import { PetGender, type PetFormItem, type PetRegisterResponse } from './pet.types';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import { blue, purple } from '@mui/material/colors';
+import UploadPetImage from './UploadPetImage';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useState } from 'react';
+import type { ServerCallType } from '@types/auth';
+import { useAuth } from '@hooks/useAuth';
+import { useSnackbar } from '@hooks/useSnackbar';
+import { useNavigate } from 'react-router';
 
 const CreatePetPage = () => {
-  const { mutate } = useMutation({});
+  const snackbar = useSnackbar();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { token } = useAuth();
+  const [file, setFile] = useState<File | null>(null);
+
+  const { mutateAsync: petInfoMutateAsync, isPending: petInfoIsPending } = useMutation<
+    PetRegisterResponse,
+    Error,
+    ServerCallType<PetFormItem>
+  >({});
+  const { mutateAsync: petPhotoMutateAsync, isPending: petPhotoIsPending } = useMutation<
+    PetRegisterResponse,
+    Error,
+    ServerCallType<FormData>
+  >({});
   const {
     handleSubmit,
     formState: { errors },
     register,
     control,
-  } = useForm<Pet>({
+  } = useForm<PetFormItem>({
     resolver: yupResolver(petFormSchema),
     defaultValues: {},
   });
-  const onSubmitHandler = (value: Pet) => {};
+  const onSubmitHandler = async (data: PetFormItem) => {
+    try {
+      const petInfo = await petInfoMutateAsync(
+        {
+          entity: 'pets',
+          method: 'post',
+          data,
+        },
+        {
+          onError: () => {
+            snackbar('Failed to register your pet', 'error');
+          },
+        }
+      );
+      if (!petInfo.success) {
+        throw new Error(petInfo.message);
+      }
+      if (file) {
+        const formData = new FormData();
+        formData.append('images', file);
+        await petPhotoMutateAsync(
+          {
+            entity: `images/pets/${petInfo.petId}/upload`,
+            method: 'post',
+            data: formData,
+            headers: {
+              'Content-Type': 'form-data',
+              Authorization: 'Bearer ' + token,
+            },
+          },
+          {
+            onSuccess: (res) => {
+              if (res.success) {
+                queryClient.refetchQueries({ queryKey: ['pets'] });
+                snackbar('Your pet register successfully', 'success');
+                navigate('/profile/pets');
+              }
+            },
+            onError: () => {
+              snackbar('Failed to register your pet', 'error');
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
       <AppNavbar pageName="Add Pet" backUrl="/profile" />
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmitHandler)}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 1, overflow: 'auto' }}
       >
+        <Typography variant="h5" fontSize={36} fontWeight={600} textAlign="center" sx={{ mt: 2, mb: 1 }}>
+          Pet Information
+        </Typography>
         {PETS_INFO.map((petInfo) => (
           <TextField
             label={petInfo}
@@ -47,17 +119,33 @@ const CreatePetPage = () => {
             rules={{ required: 'Gender is required' }}
             render={({ field }) => (
               <Select {...field} labelId="pet-gender-select-label" label="Gender">
-                <MenuItem value="male">
-                  Male <MaleIcon sx={{ color: blue[500] }} />
+                <MenuItem value="male" sx={{ color: blue[600] }}>
+                  <MaleIcon />
+                  Male
                 </MenuItem>
-                <MenuItem value="female">
-                  Female <FemaleIcon sx={{ color: purple[500] }} />
+                <MenuItem value="female" sx={{ color: purple[500] }}>
+                  <FemaleIcon />
+                  Female
                 </MenuItem>
               </Select>
             )}
           />
           {errors.gender && <Box sx={{ color: 'error.main', fontSize: 12, mt: 0.5 }}>{errors.gender.message}</Box>}
         </FormControl>
+        <UploadPetImage setFile={setFile} />
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mt: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            endIcon={<CheckCircleOutlineIcon />}
+            loading={petInfoIsPending || petPhotoIsPending}
+            fullWidth
+            sx={{ maxWidth: '400px' }}
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
@@ -65,7 +153,7 @@ const CreatePetPage = () => {
 
 export default CreatePetPage;
 
-const PETS_INFO: Array<keyof Pet> = ['name', 'species', 'breed', 'color', 'age'];
+const PETS_INFO: Array<keyof PetFormItem> = ['name', 'species', 'breed', 'color', 'age'];
 
 // ✅ Define Yup validation schema
 const petFormSchema = yup.object({

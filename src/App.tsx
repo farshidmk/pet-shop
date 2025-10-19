@@ -26,10 +26,20 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: '20px', // Change this value to whatever you want
+        },
+        input: {
+          borderRadius: '20px', // Optional: affects the inner input field
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: '20px', // Set your desired border radius here
         },
       },
     },
