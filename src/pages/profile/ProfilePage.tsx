@@ -86,7 +86,7 @@ function showRole(role: UserRole) {
       return 'Walker Keeper';
     case 'veterinarian':
       return 'Veterinarian';
-    case 'LostFoundUser':
+    case 'lost_found_user':
       return 'Lost & Found User';
 
     default:

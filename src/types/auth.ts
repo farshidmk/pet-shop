@@ -1,5 +1,5 @@
-import { QueryFunction } from '@tanstack/react-query';
-import { AxiosRequestConfig } from 'axios';
+import type { QueryFunction, QueryKey } from '@tanstack/react-query';
+import type { AxiosRequestConfig } from 'axios';
 import type { UserRole } from 'src/pages/auth/signUp/signUp.types';
 
 export type AuthContextType = {
@@ -44,6 +44,6 @@ export type LoginResponse = UserInfo & {
   token: string;
 };
 
-type LoginError = {
+export type LoginError = {
   error: string;
 };
