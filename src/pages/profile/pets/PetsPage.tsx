@@ -4,7 +4,7 @@ import CakeIcon from '@mui/icons-material/Cake';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import { Box, Button, Chip, Typography } from '@mui/material';
-import { blue, purple } from '@mui/material/colors';
+import { blue, orange, purple } from '@mui/material/colors';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import AppNavbar from 'src/layout/navbar/AppNavbar';
@@ -25,13 +25,21 @@ const PetsPage = () => {
         <Typography variant="h6" textAlign="center" sx={{ mb: 2 }}>
           Pets
         </Typography>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'auto' }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2, overflow: 'auto', p: 1 }}>
           {data?.map((pet) => {
             return <PetCard key={pet.pet_id} petInfo={pet} />;
           })}
-          <Button endIcon={<AddCircleIcon />} variant="contained" onClick={() => navigate('new')} sx={{ mt: 2 }}>
-            Add New PET
-          </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button
+              endIcon={<AddCircleIcon />}
+              variant="contained"
+              onClick={() => navigate('new')}
+              sx={{ mt: 2, maxWidth: '300px' }}
+              fullWidth
+            >
+              Add New PET
+            </Button>
+          </Box>
         </Box>
       </Box>
     </StatusHandler>
@@ -44,15 +52,20 @@ type PetCardProps = {
   petInfo: Pet;
 };
 const PetCard = ({ petInfo }: PetCardProps) => {
-  const { age, breed, gender, name, species } = petInfo;
+  const navigate = useNavigate();
+
+  const { age, breed, gender, name, species, pet_id, is_missing } = petInfo;
   return (
     <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
+        flexWrap: 'wrap',
         borderRadius: 3,
         boxShadow: 2,
         p: 1.5,
+        background: is_missing ? orange[200] : 'paper.default',
+        border: is_missing ? `1px solid ${orange[700]}` : 'none',
         transition: 'transform 0.2s, box-shadow 0.2s',
         '&:hover': {
           transform: 'translateY(-5px)',
@@ -68,7 +81,7 @@ const PetCard = ({ petInfo }: PetCardProps) => {
       />
 
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
           {gender === PetGender.Male ? (
             <MaleIcon sx={{ color: blue[700] }} />
           ) : (
@@ -93,6 +106,17 @@ const PetCard = ({ petInfo }: PetCardProps) => {
             {breed}
           </Typography>
         </Box>
+      </Box>
+      <Box sx={{ flex: 1, display: 'flex', justifyContent: 'end' }}>
+        {is_missing ? (
+          <Typography variant="body2" color="error" fontSize={12}>
+            {gender === PetGender.Male ? 'He' : 'She'}'s Missed 😭
+          </Typography>
+        ) : (
+          <Button variant="contained" color="secondary" onClick={() => navigate(`${pet_id}/lost`)}>
+            LOST
+          </Button>
+        )}
       </Box>
     </Box>
   );

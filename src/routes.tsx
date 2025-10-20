@@ -10,6 +10,7 @@ import AuthLayout from './layout/AuthLayout';
 import ProfilePage from './pages/profile/ProfilePage';
 import PetsPage from './pages/profile/pets/PetsPage';
 import CreatePetPage from './pages/profile/pets/CreatePetPage';
+import LostPetPage from './pages/profile/pets/lost/LostPetPage';
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +56,15 @@ const routes = createBrowserRouter([
                   {
                     path: 'new',
                     element: <CreatePetPage />,
+                  },
+                  {
+                    path: ':id',
+                    children: [
+                      {
+                        path: 'lost',
+                        element: <LostPetPage />,
+                      },
+                    ],
                   },
                 ],
               },

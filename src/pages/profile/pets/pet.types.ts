@@ -39,3 +39,13 @@ export type Pet = {
   vaccination_status: string;
   weight: number;
 };
+
+export type PetLost = {
+  pet_id: number;
+  last_seen_address: string;
+  latitude: number;
+  longitude: number;
+  last_seen_date: string;
+  circumstances: string;
+  is_urgent: true;
+};
