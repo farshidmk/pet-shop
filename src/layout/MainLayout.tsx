@@ -3,15 +3,19 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 import AppBottomNavigation from './AppBottomNavigation';
+import { Roles } from 'src/pages/auth/signUp/signUp.types';
 // import Navbar from './Navbar';
 
 const MainLayout = () => {
-  const { isUserLoggedIn } = useAuth();
+  const { isUserLoggedIn, userInfo } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isUserLoggedIn) {
       navigate(`/auth/login`);
+    }
+    if (userInfo?.role === Roles.LostFoundUser) {
+      navigate(`/founder`);
     }
   }, [isUserLoggedIn, navigate]);
 

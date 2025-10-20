@@ -14,6 +14,7 @@ import PetTextInput from '../../../components/petTextInput/PetTextInput';
 import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 import type { ServerLoginError } from '../../../types/server';
+import { Roles } from '../signUp/signUp.types';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const Login = () => {
             role,
             userId,
           });
-          navigate('/');
+          navigate(role === Roles.LostFoundUser ? '/founder' : '/');
         },
       }
     );

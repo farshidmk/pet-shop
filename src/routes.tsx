@@ -11,6 +11,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 import PetsPage from './pages/profile/pets/PetsPage';
 import CreatePetPage from './pages/profile/pets/CreatePetPage';
 import LostPetPage from './pages/profile/pets/lost/LostPetPage';
+import FounderPage from './pages/founder/FounderPage';
 
 const routes = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
             element: <SignUpPage />,
           },
         ],
+      },
+      {
+        path: 'founder',
+        element: <FounderPage />,
       },
       {
         element: <MainLayout />,

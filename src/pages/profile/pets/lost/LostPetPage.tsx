@@ -72,7 +72,7 @@ const customIcon = L.icon({
   iconSize: [32, 32],
 });
 
-function LocationMarker({
+export function LocationMarker({
   position,
   setPosition,
 }: {

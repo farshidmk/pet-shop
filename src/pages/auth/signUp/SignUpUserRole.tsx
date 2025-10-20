@@ -81,6 +81,7 @@ const RoleCardCheckbox = ({ title, description, imageUrl, value }: Props) => {
         px: 1,
         display: 'flex',
         alignItems: 'center',
+        width: '100%',
       }}
       component="div"
       onClick={() => {
@@ -121,5 +122,11 @@ const ROLES: Props[] = [
     description: 'Manage pet health records and provide professional support.',
     imageUrl: '/assets/images/lonely-dog.png',
     value: Roles.Veterinarian,
+  },
+  {
+    title: 'Pet Finder',
+    description: 'Someone who finds a pet and helps return it to its owner',
+    imageUrl: '/assets/images/my-dog.png',
+    value: Roles.LostFoundUser,
   },
 ];

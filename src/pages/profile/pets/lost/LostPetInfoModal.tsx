@@ -5,6 +5,7 @@ import { Box, Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui
 import { useForm } from 'react-hook-form';
 import L from 'leaflet';
 import { useNavigate } from 'react-router';
+import { getNow } from '@services/time';
 
 type Props = {
   open: boolean;
@@ -23,7 +24,7 @@ const LostPetInfoModal = ({ open, petId, handleClose, position }: Props) => {
   } = useForm<PetLost>({
     // resolver: yupResolver(loginValidation),
     defaultValues: {
-      last_seen_date: getDate(),
+      last_seen_date: getNow(),
     },
   });
 
@@ -98,12 +99,3 @@ const LostPetInfoModal = ({ open, petId, handleClose, position }: Props) => {
 };
 
 export default LostPetInfoModal;
-
-function getDate() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const day = String(now.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}

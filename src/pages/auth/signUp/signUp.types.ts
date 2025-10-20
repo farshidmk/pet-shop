@@ -2,7 +2,7 @@ export const Roles = {
   PetOwner: 'pet_owner',
   WalkerKeeper: 'walker_keeper',
   Veterinarian: 'veterinarian',
-  LostFoundUser: 'LostFoundUser',
+  LostFoundUser: 'lost_found_user',
 } as const;
 
 export type UserRole = (typeof Roles)[keyof typeof Roles];
