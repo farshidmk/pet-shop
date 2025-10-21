@@ -11,7 +11,7 @@ import { blue, purple } from '@mui/material/colors';
 import UploadPetImage from './UploadPetImage';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useState } from 'react';
-import type { ServerCallType } from '@types/auth';
+import type { ServerCallType } from 'src/types/auth';
 import { useAuth } from '@hooks/useAuth';
 import { useSnackbar } from '@hooks/useSnackbar';
 import { useNavigate } from 'react-router';

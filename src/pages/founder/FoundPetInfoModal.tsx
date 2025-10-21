@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { getNow } from '@services/time';
 import { useMutation } from '@tanstack/react-query';
-import type { ServerCallType } from '@types/auth';
+import type { ServerCallType } from 'src/types/auth';
 import L from 'leaflet';
 import { useForm } from 'react-hook-form';
 import type { FoundPet } from './founder.types';
