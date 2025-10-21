@@ -109,6 +109,7 @@ const ProfileMenuItem = ({ icon, title, onClick = undefined }: ProfileMenuItemPr
         textDecoration: 'none',
         color: 'black',
         p: 2,
+        cursor: 'pointer',
       }}
       component="div"
       onClick={onClick}

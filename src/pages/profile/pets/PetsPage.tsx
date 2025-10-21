@@ -3,7 +3,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CakeIcon from '@mui/icons-material/Cake';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
-import { Box, Button, Chip, Typography } from '@mui/material';
+import { Box, Button, Chip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { blue, orange, purple } from '@mui/material/colors';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
@@ -53,8 +53,10 @@ type PetCardProps = {
 };
 const PetCard = ({ petInfo }: PetCardProps) => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { age, breed, gender, name, species, pet_id, is_missing } = petInfo;
+  const { age, breed, gender, name, species, pet_id, is_missing, primaryImage } = petInfo;
   return (
     <Box
       sx={{
@@ -75,7 +77,7 @@ const PetCard = ({ petInfo }: PetCardProps) => {
     >
       <Box
         component="img"
-        src="/assets/images/lonely-dog.png"
+        src={primaryImage?.image_url ?? '/assets/images/lonely-dog.png'}
         alt={name}
         sx={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'fill' }}
       />
@@ -90,7 +92,7 @@ const PetCard = ({ petInfo }: PetCardProps) => {
           <Typography variant="h6">{name}</Typography>
 
           <Chip
-            label={`${age} year${age > 1 ? 's' : ''}`}
+            label={`${age}${isSmallScreen ? '' : ' year' + (age > 1 ? 's' : '')}`}
             color="info"
             size="small"
             icon={<CakeIcon />}
@@ -110,7 +112,7 @@ const PetCard = ({ petInfo }: PetCardProps) => {
       <Box sx={{ flex: 1, display: 'flex', justifyContent: 'end' }}>
         {is_missing ? (
           <Typography variant="body2" color="error" fontSize={12}>
-            {gender === PetGender.Male ? 'He' : 'She'}'s Missed 😭
+            Missed 😭
           </Typography>
         ) : (
           <Button variant="contained" color="secondary" onClick={() => navigate(`${pet_id}/lost`)}>

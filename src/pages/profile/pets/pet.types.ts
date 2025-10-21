@@ -38,6 +38,10 @@ export type Pet = {
   updated_at: string;
   vaccination_status: string;
   weight: number;
+  primaryImage: {
+    image_url: string;
+  };
+  primaryImageUrl: string;
 };
 
 export type PetLost = {
