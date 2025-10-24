@@ -33,7 +33,7 @@ const ErrorPage = () => {
       </Box>
 
       <Typography variant="h2" fontWeight={600} fontSize={36} color="primary" sx={{ mb: 8 }}>
-        Pet Shop
+        Pets Pulse
       </Typography>
       <Typography variant="h6" color="error">
         Something went wrong

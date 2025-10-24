@@ -5,6 +5,9 @@ import type { ServerCallType } from 'src/types/auth';
 import L from 'leaflet';
 import { useForm } from 'react-hook-form';
 import type { FoundPet } from './founder.types';
+import { useSnackbar } from '@hooks/useSnackbar';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { foundPetSchema } from './found.validation';
 
 type Props = {
   open: boolean;
@@ -13,14 +16,17 @@ type Props = {
 };
 
 const FoundPetInfoModal = ({ open, handleClose, position }: Props) => {
+  const snackbar = useSnackbar();
   const {
     handleSubmit,
     formState: { errors },
     register,
   } = useForm<FoundPet>({
-    // resolver: yupResolver(loginValidation),
+    resolver: yupResolver(foundPetSchema),
     defaultValues: {
       found_date: getNow(),
+      latitude: 0,
+      longitude: 0,
     },
   });
 
@@ -39,7 +45,12 @@ const FoundPetInfoModal = ({ open, handleClose, position }: Props) => {
         data,
       },
       {
-        onSuccess: () => {},
+        onSuccess: () => {
+          snackbar('Thank you. The pet information is Saved', 'success');
+        },
+        onError: () => {
+          snackbar('Error on saving pet information.', 'error');
+        },
       }
     );
   };

@@ -7,7 +7,7 @@ type MenuCardProps = {
 
 const MenuCard = ({ imageUrl, title }: MenuCardProps) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: '40%' }}>
       <Box
         sx={{
           display: 'flex',
@@ -16,9 +16,10 @@ const MenuCard = ({ imageUrl, title }: MenuCardProps) => {
           background: '#F3F0E6',
           borderRadius: 3,
           p: 2,
+          // width: '50%',
         }}
       >
-        <Box component="img" src={imageUrl} sx={{ width: '50px', height: '50px' }} />
+        <Box component="img" src={imageUrl} sx={{ width: '40%', height: 'auto' }} />
       </Box>
       <Typography variant="body2" fontWeight={'400'} fontSize={14} textAlign={'center'}>
         {title}

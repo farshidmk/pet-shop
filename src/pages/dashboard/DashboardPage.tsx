@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import HomePageLayout from 'src/layout/homePage/HomePageLayout';
 import SearchBar from './components/SearchBar';
 import MenuCard, { DASHBOARD_MENUS } from './components/MenuCard';
@@ -6,7 +6,7 @@ import MenuCard, { DASHBOARD_MENUS } from './components/MenuCard';
 const DashboardPage = () => {
   return (
     <HomePageLayout>
-      <Box component="main" sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box component="main" sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'auto' }}>
         <SearchBar />
 
         <Box
@@ -30,19 +30,21 @@ const DashboardPage = () => {
           </Box>
           <Box component="img" src="assets/images/cat_dog.png" sx={{ width: '130px', height: '130px' }} />
         </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            gap: 1.5,
-            width: '100%',
-            overflow: 'auto',
-          }}
-        >
-          {DASHBOARD_MENUS.map((menu) => (
-            <MenuCard key={menu.title} {...menu} />
-          ))}
+        <Box sx={{ flex: 1, overflow: 'auto' }}>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+            }}
+          >
+            {DASHBOARD_MENUS.map((menu) => (
+              <MenuCard key={menu.title} {...menu} />
+            ))}
+          </Box>
         </Box>
       </Box>
     </HomePageLayout>

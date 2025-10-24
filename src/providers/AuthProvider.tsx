@@ -49,6 +49,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function logout() {
+    console.log('first');
     setToken('');
     setUserInfo('');
   }

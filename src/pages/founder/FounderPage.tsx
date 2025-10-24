@@ -2,15 +2,28 @@ import { useAuth } from '@hooks/useAuth';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import L from 'leaflet';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { LocationMarker } from '../profile/pets/lost/LostPetPage';
 import FoundPetInfoModal from './FoundPetInfoModal';
+import { useNavigate } from 'react-router';
+import { Roles } from '../auth/signUp/signUp.types';
 
 const FounderPage = () => {
-  const { logout } = useAuth();
   const [position, setPosition] = useState<L.LatLng | null>(null);
   const [showModal, setShowModal] = useState(false);
+
+  const { isUserLoggedIn, userInfo, logout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isUserLoggedIn) {
+      navigate(`/auth/login`);
+    }
+    if (userInfo?.role !== Roles.LostFoundUser) {
+      navigate(`/`);
+    }
+  }, [isUserLoggedIn, navigate]);
 
   return (
     <>
@@ -27,7 +40,13 @@ const FounderPage = () => {
         }}
       >
         <Box sx={{ width: '100%' }}>
-          <IconButton color="warning" onClick={logout}>
+          <IconButton
+            color="warning"
+            onClick={() => {
+              logout();
+              navigate('/auth/login');
+            }}
+          >
             <PowerSettingsNewIcon />
           </IconButton>
         </Box>
