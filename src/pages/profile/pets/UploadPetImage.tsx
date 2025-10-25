@@ -5,9 +5,10 @@ import { grey } from '@mui/material/colors';
 
 type Props = {
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  isFounder?: boolean;
 };
 
-function UploadPetImage({ setFile }: Props) {
+function UploadPetImage({ setFile, isFounder = false }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -45,7 +46,7 @@ function UploadPetImage({ setFile }: Props) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        mt: 2,
+        mt: isFounder ? 0 : 2,
       }}
     >
       <Box
@@ -79,13 +80,15 @@ function UploadPetImage({ setFile }: Props) {
           />
         ) : (
           <Typography textAlign="center">
-            Upload your pet's <i>photo</i>
+            Upload {isFounder ? '' : 'your'} pet's <i>photo</i>
           </Typography>
         )}
       </Box>
-      <Typography textAlign="center" variant="body2" fontSize={14} fontWeight={600}>
-        Your pet's Photo
-      </Typography>
+      {!isFounder && (
+        <Typography textAlign="center" variant="body2" fontSize={14} fontWeight={600}>
+          Your pet's Photo
+        </Typography>
+      )}
     </Box>
   );
 }

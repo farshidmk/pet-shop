@@ -9,3 +9,10 @@ export type FoundPet = {
   condition_description: string;
   contact_phone: string;
 };
+
+export type FoundPetResponse = {
+  errorCode: number;
+  message: string;
+  reportId: number;
+  success: true;
+};
