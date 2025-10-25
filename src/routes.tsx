@@ -12,6 +12,7 @@ import PetsPage from './pages/profile/pets/PetsPage';
 import CreatePetPage from './pages/profile/pets/CreatePetPage';
 import LostPetPage from './pages/profile/pets/lost/LostPetPage';
 import FounderPage from './pages/founder/FounderPage';
+import SearchLostPetsPage from './pages/search/SearchLostPetsPage';
 
 const routes = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const routes = createBrowserRouter([
           {
             index: true,
             element: <DashboardPage />,
+          },
+          {
+            path: 'search',
+            element: <SearchLostPetsPage />,
           },
           {
             path: 'profile',

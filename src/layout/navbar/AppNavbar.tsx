@@ -7,15 +7,22 @@ type Props = {
   pageName: string;
   backUrl: string;
   actionButton?: React.ReactNode;
+  onBack?: () => void;
 };
 
-const AppNavbar = ({ backUrl, actionButton = null, pageName }: Props) => {
+const AppNavbar = ({ backUrl, actionButton = null, pageName, onBack }: Props) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-        <Link to={backUrl} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <ChevronLeftIcon />
-        </Link>
+        {onBack ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer' }}>
+            <ChevronLeftIcon onClick={() => onBack()} />
+          </Box>
+        ) : (
+          <Link to={backUrl} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ChevronLeftIcon />
+          </Link>
+        )}
         <Typography variant="body1">{pageName}</Typography>
       </Box>
       {actionButton}
