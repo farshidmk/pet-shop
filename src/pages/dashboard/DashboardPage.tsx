@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import HomePageLayout from 'src/layout/homePage/HomePageLayout';
 import SearchBar from './components/SearchBar';
 import MenuCard, { DASHBOARD_MENUS } from './components/MenuCard';

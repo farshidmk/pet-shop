@@ -1,13 +1,12 @@
+import GetLocation from '@components/map/GetLocation';
+import { useSnackbar } from '@hooks/useSnackbar';
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
-import AppNavbar from 'src/layout/navbar/AppNavbar';
-import { LocationMarker } from '../profile/pets/lost/LostPetPage';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import type { SearchPet, SearchPetResult } from './search.types';
-import { useMutation } from '@tanstack/react-query';
+import AppNavbar from 'src/layout/navbar/AppNavbar';
 import type { ServerCallType } from 'src/types/auth';
-import { useSnackbar } from '@hooks/useSnackbar';
+import type { SearchPet, SearchPetResult } from './search.types';
 import SearchResult from './SearchResult';
 
 const SearchLostPetsPage = () => {
@@ -63,17 +62,7 @@ const SearchLostPetsPage = () => {
             sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', mt: 2, gap: 1, px: 1 }}
           >
             <Box sx={{ flex: 1, minHeight: '300px', mb: 1 }}>
-              <MapContainer
-                center={[51.505, -0.09]} // default center
-                zoom={13}
-                style={{ height: '100%', width: '100%' }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                />
-                <LocationMarker position={position} setPosition={setPosition} />
-              </MapContainer>
+              <GetLocation position={position} setPosition={setPosition} />
             </Box>
             <Grid container spacing={1.5}>
               {ITEMS.map((item) => (

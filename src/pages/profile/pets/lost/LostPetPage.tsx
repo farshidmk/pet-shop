@@ -1,13 +1,13 @@
+import GetLocation from '@components/map/GetLocation';
+import StatusHandler from '@components/statusHandler/StatusHandler';
 import { Box, Button, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import L from 'leaflet';
 import { useState } from 'react';
-import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import { useParams } from 'react-router';
 import AppNavbar from 'src/layout/navbar/AppNavbar';
-import LostPetInfoModal from './LostPetInfoModal';
-import { useQuery } from '@tanstack/react-query';
 import type { Pet } from '../pet.types';
-import StatusHandler from '@components/statusHandler/StatusHandler';
+import LostPetInfoModal from './LostPetInfoModal';
 
 const LostPetPage = () => {
   const { id } = useParams();
@@ -28,17 +28,7 @@ const LostPetPage = () => {
             Let's find {data?.name}
           </Typography>
           <Box sx={{ flex: 1 }}>
-            <MapContainer
-              center={[51.505, -0.09]} // default center
-              zoom={13}
-              style={{ height: '100%', width: '100%' }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              />
-              <LocationMarker position={position} setPosition={setPosition} />
-            </MapContainer>
+            <GetLocation position={position} setPosition={setPosition} />
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
@@ -66,24 +56,3 @@ const LostPetPage = () => {
 };
 
 export default LostPetPage;
-
-const customIcon = L.icon({
-  iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-  iconSize: [32, 32],
-});
-
-export function LocationMarker({
-  position,
-  setPosition,
-}: {
-  position: L.LatLng | null;
-  setPosition: (pos: L.LatLng) => void;
-}) {
-  useMapEvents({
-    click(e) {
-      setPosition(e.latlng);
-    },
-  });
-
-  return position ? <Marker position={position} icon={customIcon} /> : null;
-}
