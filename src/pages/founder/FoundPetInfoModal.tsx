@@ -114,6 +114,18 @@ const FoundPetInfoModal = ({ open, handleClose, position }: Props) => {
             ))}
             <Grid size={{ xs: 12 }}>
               <TextField
+                label="Email"
+                {...register('email')}
+                error={Boolean(errors.email?.message)}
+                helperText={errors.email?.message}
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={1}
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <TextField
                 label="Last seen date"
                 {...register('found_date')}
                 error={Boolean(errors.found_date?.message)}

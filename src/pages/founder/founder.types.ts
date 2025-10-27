@@ -8,6 +8,7 @@ export type FoundPet = {
   found_date: string;
   condition_description: string;
   contact_phone: string;
+  email: string;
 };
 
 export type FoundPetResponse = {

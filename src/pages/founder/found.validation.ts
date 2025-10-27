@@ -4,6 +4,7 @@ export const foundPetSchema = yup.object({
   species: yup.string().required('Species is required').min(2, 'Species must be at least 2 characters'),
   breed: yup.string().required('Breed is required').min(2, 'Breed must be at least 2 characters'),
   color: yup.string().required('Color is required').min(2, 'Color must be at least 2 characters'),
+  email: yup.string().required('Email is required').email('Please enter a valid email address'),
   found_address: yup.string().required('Found address is required').min(5, 'Please enter a valid address'),
   latitude: yup.number().required('Latitude is required').min(-90, 'Invalid latitude').max(90, 'Invalid latitude'),
   longitude: yup
