@@ -41,4 +41,11 @@ export type SearchPetInfo = {
   status: 'found';
   created_at: string;
   updated_at: string;
+  reward_offered: false;
+  finder: {
+    user_id: number;
+    email: string;
+  };
+  primary_image_url: string;
+  has_images: boolean;
 };
