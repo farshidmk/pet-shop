@@ -100,7 +100,7 @@ const ITEMS: { name: keyof SearchPet; label: string }[] = [
     label: 'Breed',
   },
   {
-    name: 'days',
+    name: 'color',
     label: 'Color',
   },
   {

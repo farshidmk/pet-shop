@@ -6,7 +6,7 @@ export type SearchPet = {
   radius?: string;
   species?: string;
   breed?: string;
-  days?: string;
+  color?: string;
 };
 
 export type SearchPetResult = {
