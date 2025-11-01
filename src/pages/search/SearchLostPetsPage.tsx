@@ -8,6 +8,8 @@ import AppNavbar from 'src/layout/navbar/AppNavbar';
 import type { ServerCallType } from 'src/types/auth';
 import type { SearchPet, SearchPetResult } from './search.types';
 import SearchResult from './SearchResult';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
 const SearchLostPetsPage = () => {
   const snackbar = useSnackbar();
@@ -20,7 +22,11 @@ const SearchLostPetsPage = () => {
     formState: { errors },
     register,
   } = useForm<SearchPet>({
-    defaultValues: {},
+    defaultValues: {
+      radius: '30',
+    },
+    //@ts-ignore
+    resolver: yupResolver(validationSchema),
   });
 
   const onSubmitHandler = (values: SearchPet) => {
@@ -28,7 +34,6 @@ const SearchLostPetsPage = () => {
       ...values,
       latitude: String(position!.lat),
       longitude: String(position!.lng),
-      radius: '30',
     };
     const query = new URLSearchParams(data).toString();
     mutate(
@@ -58,6 +63,7 @@ const SearchLostPetsPage = () => {
           </Typography>
           <Box
             component="form"
+            //@ts-ignore
             onSubmit={handleSubmit(onSubmitHandler)}
             sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'auto', mt: 2, gap: 1, px: 1 }}
           >
@@ -108,3 +114,13 @@ const ITEMS: { name: keyof SearchPet; label: string }[] = [
     label: 'radius',
   },
 ];
+
+const validationSchema = Yup.object().shape({
+  radius: Yup.string()
+    .matches(/^[0-9]+$/, 'Only numeric characters are allowed') // Only numeric characters
+    .test('is-valid-range', 'Value must be greater than 0 and less than 100', (value) => {
+      const numValue = Number(value);
+      return numValue > 0 && numValue < 100;
+    })
+    .required('This field is required'), // Make the field required
+});
