@@ -1,9 +1,8 @@
-import { Box, Button, CircularProgress, IconButton, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, CircularProgress, IconButton, TextField, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useForm } from 'react-hook-form';
 import { Roles, SignUpFormSteps, type SignUpItems } from './signUp.types';
 import useSignUpValues from './hooks/useSignUpValues';
-import type { AxiosError } from 'axios';
 import type { LoginResponse, ServerCallType } from '../../../types/auth';
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '@hooks/useAuth';
@@ -14,7 +13,11 @@ const SignUpUserInfo = () => {
   const snackbar = useSnackbar();
   const navigate = useNavigate();
   const { storeUserInfo } = useAuth();
-  const { mutate, isPending } = useMutation<LoginResponse, AxiosError, ServerCallType<SignUpItems>>({});
+  const { mutate, isPending, error } = useMutation<
+    LoginResponse,
+    Error & { error: string },
+    ServerCallType<SignUpItems>
+  >({});
   const { signUpValues, setStep } = useSignUpValues();
   const {
     handleSubmit,
@@ -170,6 +173,12 @@ const SignUpUserInfo = () => {
             />
           )}
         </Box>
+
+        {error && (
+          <Alert variant="filled" severity="error" sx={{ borderRadius: 5, mt: 2 }}>
+            {error.error}
+          </Alert>
+        )}
 
         <Box
           sx={{

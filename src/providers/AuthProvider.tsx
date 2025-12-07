@@ -80,6 +80,9 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         const tempError = e.response.data;
         throw tempError;
       }
+      if (isServerError(e) && e.response?.data) {
+        throw e.response.data;
+      }
       throw e || new Error(`Error on Fetching Data`);
     }
   };
