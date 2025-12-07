@@ -19,9 +19,13 @@ const SearchResult = ({ result, handleBack }: Props) => {
     <Box sx={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}>
       <AppNavbar pageName="Search Result" backUrl="/" onBack={handleBack} />
       <Box sx={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', p: 2, gap: 2 }}>
-        {result.results?.map((pet) => (
-          <PetSearchCard key={pet.report_id} pet={pet} />
-        ))}
+        {result.results?.length ? (
+          result.results?.map((pet) => <PetSearchCard key={pet.report_id} pet={pet} />)
+        ) : (
+          <Typography variant="h6" textAlign={'center'} sx={{ mt: 2 }}>
+            Nothing was Found!
+          </Typography>
+        )}
       </Box>
     </Box>
   );
