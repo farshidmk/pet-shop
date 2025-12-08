@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import AppNavbar from 'src/layout/navbar/AppNavbar';
 import { PetGender, type Pet } from './pet.types';
+import lonelyDog from '@assets/images/lonely-dog.png';
 
 const PetsPage = () => {
   const navigate = useNavigate();
@@ -77,7 +78,7 @@ const PetCard = ({ petInfo }: PetCardProps) => {
     >
       <Box
         component="img"
-        src={primaryImage?.image_url ?? '/assets/images/lonely-dog.png'}
+        src={primaryImage?.image_url ?? { lonelyDog }}
         alt={name}
         sx={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'fill' }}
       />

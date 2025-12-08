@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '@hooks/useAuth';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from '@hooks/useSnackbar';
+import logo from '@assets/images/logo.png';
 
 const SignUpUserInfo = () => {
   const snackbar = useSnackbar();
@@ -94,7 +95,7 @@ const SignUpUserInfo = () => {
           mb: 3,
         }}
       >
-        <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
+        <Box component="img" src={logo} sx={{ height: 80, width: 80 }} />
       </Box>
 
       <Typography variant="h6" color="textPrimary">

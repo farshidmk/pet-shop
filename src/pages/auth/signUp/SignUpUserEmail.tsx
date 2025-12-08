@@ -11,6 +11,8 @@ import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 import useSignUpValues from './hooks/useSignUpValues';
 import { SignUpFormSteps, type SignUpItems } from './signUp.types';
+import logo from '@assets/images/logo.png';
+import myDog from '@assets/images/my-dog.png';
 
 type SignUpUserEmailItems = Pick<SignUpItems, 'email' | 'password'>;
 
@@ -66,7 +68,7 @@ const SignUpUserEmail = () => {
           mb: 3,
         }}
       >
-        <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
+        <Box component="img" src={logo} sx={{ height: 80, width: 80 }} />
       </Box>
       <Typography variant="h6" fontWeight={600}>
         Sign Up
@@ -146,7 +148,7 @@ const SignUpUserEmail = () => {
       <Box sx={{ flex: 1 }} />
       <Box
         component="img"
-        src="/assets/images/my-dog.png"
+        src={myDog}
         sx={{
           height: '20vh',
           width: 'auto',

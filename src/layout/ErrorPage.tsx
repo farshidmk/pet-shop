@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import { IS_DEVELOPMENT } from '../global';
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
+import logo from '@assets/images/logo.png';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const ErrorPage = () => {
           mb: 3,
         }}
       >
-        <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
+        <Box component="img" src={logo} sx={{ height: 80, width: 80 }} />
       </Box>
 
       <Typography variant="h2" fontWeight={600} fontSize={36} color="primary" sx={{ mb: 8 }}>

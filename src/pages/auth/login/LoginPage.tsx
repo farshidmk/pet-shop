@@ -15,6 +15,8 @@ import PetEmailIcon from '../../../icons/PetEmailIcon';
 import PetPasswordIcon from '../../../icons/PetPasswordIcon';
 import type { ServerLoginError } from '../../../types/server';
 import { Roles } from '../signUp/signUp.types';
+import logo from '@assets/images/logo.png';
+import lonelyDog from '@assets/images/lonely-dog.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -88,7 +90,7 @@ const Login = () => {
           mb: 3,
         }}
       >
-        <Box component="img" src="/assets/images/logo.png" sx={{ height: 80, width: 80 }} />
+        <Box component="img" src={logo} sx={{ height: 80, width: 80 }} />
       </Box>
       <Typography variant="h6" fontWeight={600}>
         Login
@@ -176,7 +178,7 @@ const Login = () => {
       <Box sx={{ flex: 1 }} />
       <Box
         component="img"
-        src="/assets/images/lonely-dog.png"
+        src={lonelyDog}
         sx={{
           height: '20vh',
           width: 'auto',

@@ -14,6 +14,7 @@
       "@providers/*": ["src/providers/*"],
       "@services/*": ["src/services/*"],
       "@shared/*": ["src/shared/*"],
+      "@assets/*": ["src/assets/*"],
     },
   }
   

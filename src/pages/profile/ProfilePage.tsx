@@ -9,6 +9,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import AppNavbar from 'src/layout/navbar/AppNavbar';
 import type { UserRole } from '../auth/signUp/signUp.types';
+import petOwnerProfile from '@assets/images/petOwnerProfile.png';
 
 const ProfilePage = () => {
   const { userInfo, logout } = useAuth();
@@ -28,7 +29,7 @@ const ProfilePage = () => {
       >
         <Box
           component="img"
-          src="/assets/images/petOwnerProfile.png"
+          src={petOwnerProfile}
           sx={{ borderRadius: '50%', height: '122px', width: '122px', mb: 2 }}
         />
         <Typography variant="body1" fontWeight={800} fontSize={20} gutterBottom>

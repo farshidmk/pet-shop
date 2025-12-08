@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import HomePageLayout from 'src/layout/homePage/HomePageLayout';
 import SearchBar from './components/SearchBar';
 import MenuCard, { DASHBOARD_MENUS } from './components/MenuCard';
+import catDog from '@assets/images/cat_dog.png';
 
 const DashboardPage = () => {
   return (
@@ -28,7 +29,7 @@ const DashboardPage = () => {
               Reminder
             </Button>
           </Box>
-          <Box component="img" src="assets/images/cat_dog.png" sx={{ width: '130px', height: '130px' }} />
+          <Box component="img" src={catDog} sx={{ width: '130px', height: '130px' }} />
         </Box>
         <Box sx={{ flex: 1, overflow: 'auto' }}>
           <Box

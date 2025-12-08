@@ -2,6 +2,9 @@ import { Box, Button, Checkbox, IconButton, Typography } from '@mui/material';
 import { Roles, SignUpFormSteps, type UserRole } from './signUp.types';
 import useSignUpValues from './hooks/useSignUpValues';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import petOwner from '@assets/images/petOwner.png';
+import myDog from '@assets/images/my-dog.png';
+import lonelyDog from '@assets/images/lonely-dog.png';
 
 const SignUpUserRole = () => {
   const { setStep } = useSignUpValues();
@@ -108,25 +111,25 @@ const ROLES: Props[] = [
   {
     title: 'Owner',
     description: 'Track your pet’s care, appointments, and find nearby pet sitters.',
-    imageUrl: '/assets/images/petOwner.png',
+    imageUrl: petOwner,
     value: Roles.PetOwner,
   },
   {
     title: 'Sitter/Walker',
     description: 'Help other by offering pet-sitting services, build trust and earn.',
-    imageUrl: '/assets/images/my-dog.png',
+    imageUrl: myDog,
     value: Roles.WalkerKeeper,
   },
   {
     title: 'Veterinarian',
     description: 'Manage pet health records and provide professional support.',
-    imageUrl: '/assets/images/lonely-dog.png',
+    imageUrl: lonelyDog,
     value: Roles.Veterinarian,
   },
   {
     title: 'Pet Finder',
     description: 'Someone who finds a pet and helps return it to its owner',
-    imageUrl: '/assets/images/my-dog.png',
+    imageUrl: myDog,
     value: Roles.LostFoundUser,
   },
 ];

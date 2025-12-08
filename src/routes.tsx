@@ -14,76 +14,81 @@ import LostPetPage from './pages/profile/pets/lost/LostPetPage';
 import FounderPage from './pages/founder/FounderPage';
 import SearchLostPetsPage from './pages/search/SearchLostPetsPage';
 
-const routes = createBrowserRouter([
-  {
-    element: <AppLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: '/auth',
-        element: <AuthLayout />,
-        children: [
-          {
-            element: <LoginPage />,
-            path: 'login',
-          },
-          {
-            path: 'sign-up',
-            element: <SignUpPage />,
-          },
-        ],
-      },
-      {
-        path: 'founder',
-        element: <FounderPage />,
-      },
-      {
-        element: <MainLayout />,
-        children: [
-          {
-            index: true,
-            element: <DashboardPage />,
-          },
-          {
-            path: 'search',
-            element: <SearchLostPetsPage />,
-          },
-          {
-            path: 'profile',
+const routes = createBrowserRouter(
+  [
+    {
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: '/auth',
+          element: <AuthLayout />,
+          children: [
+            {
+              element: <LoginPage />,
+              path: 'login',
+            },
+            {
+              path: 'sign-up',
+              element: <SignUpPage />,
+            },
+          ],
+        },
+        {
+          path: 'founder',
+          element: <FounderPage />,
+        },
+        {
+          element: <MainLayout />,
+          children: [
+            {
+              index: true,
+              element: <DashboardPage />,
+            },
+            {
+              path: 'search',
+              element: <SearchLostPetsPage />,
+            },
+            {
+              path: 'profile',
 
-            children: [
-              {
-                index: true,
-                element: <ProfilePage />,
-              },
-              {
-                path: 'pets',
-                children: [
-                  {
-                    index: true,
-                    element: <PetsPage />,
-                  },
-                  {
-                    path: 'new',
-                    element: <CreatePetPage />,
-                  },
-                  {
-                    path: ':id',
-                    children: [
-                      {
-                        path: 'lost',
-                        element: <LostPetPage />,
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-]);
+              children: [
+                {
+                  index: true,
+                  element: <ProfilePage />,
+                },
+                {
+                  path: 'pets',
+                  children: [
+                    {
+                      index: true,
+                      element: <PetsPage />,
+                    },
+                    {
+                      path: 'new',
+                      element: <CreatePetPage />,
+                    },
+                    {
+                      path: ':id',
+                      children: [
+                        {
+                          path: 'lost',
+                          element: <LostPetPage />,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  {
+    basename: '/petapp',
+  }
+);
 
 export default routes;

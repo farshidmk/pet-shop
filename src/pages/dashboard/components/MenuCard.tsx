@@ -1,5 +1,10 @@
 import { Box, Typography } from '@mui/material';
 
+import grooming from '@assets/images/grooming.png';
+import veterinary from '@assets/images/veterinary.png';
+import foods from '@assets/images/foods.png';
+import more from '@assets/images/more.png';
+
 type MenuCardProps = {
   imageUrl: string;
   title: string;
@@ -33,18 +38,18 @@ export default MenuCard;
 export const DASHBOARD_MENUS: MenuCardProps[] = [
   {
     title: 'Grooming',
-    imageUrl: '/assets/images/grooming.png',
+    imageUrl: grooming,
   },
   {
     title: 'Veterinary',
-    imageUrl: '/assets/images/veterinary.png',
+    imageUrl: veterinary,
   },
   {
     title: 'Foods',
-    imageUrl: '/assets/images/foods.png',
+    imageUrl: foods,
   },
   {
     title: 'More...',
-    imageUrl: '/assets/images/more.png',
+    imageUrl: more,
   },
 ];
